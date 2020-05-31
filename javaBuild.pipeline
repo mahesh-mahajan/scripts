@@ -1,0 +1,13 @@
+node ()
+{
+	stage ('myApp Code Checkout') {
+ 	 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GitHub', url: 'https://github.com/mahesh-mahajan/webapplication.git']]]) 
+	}
+	
+	stage ('myApp Application Build') {
+ 	sh """ 
+    cd $workspace/commercialapi
+    /usr/bin/mvn clean install -Dmaven.test.skip=true 
+     """ 
+     }
+{     
